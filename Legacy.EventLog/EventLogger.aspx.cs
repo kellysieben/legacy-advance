@@ -1,51 +1,50 @@
 ﻿using System;
 using System.IO;
+using Legacy.EventLog.Model;
+using Legacy.EventLog.Presenter;
+using Legacy.EventLog.View;
 
 namespace Legacy.EventLog
 {
-    public partial class EventLogger : System.Web.UI.Page
+    public partial class EventLogger : System.Web.UI.Page, ILogView
     {
-        private const string CLogFile = "c:\\logs\\jbf.log";
+        private LogPresenter _presenter;
+
+        public string NewEntry
+        {
+            get { return NewEventTextBox.Text; }
+            set { NewEventTextBox.Text = value; }
+        }
+
+        public string InfoStatus
+        {
+            get { return InfoStatusLabel.Text; }
+            set { InfoStatusLabel.Text = value; }
+        }
+
+        public string[] Log
+        {
+            set
+            {
+                if (value == null) return;
+
+                LoggedEventsList.Items.Clear();
+                foreach (var s in value)
+                {
+                    LoggedEventsList.Items.Add(s);
+                }
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ReadLogFile();
+            _presenter = new LogPresenter(this, new FileLogService());
+            _presenter.Init();
         }
 
         protected void AddLogButton_Click(object sender, EventArgs e)
         {
-            AddToLogFile(NewEventTextBox.Text);
-            NewEventTextBox.Text = "";
-            ReadLogFile();
-        }
-
-        private void AddToLogFile(string entry)
-        {
-            if (string.IsNullOrEmpty(entry)) return;
-            using (var sw = File.AppendText(CLogFile))
-            {
-                sw.WriteLine("<" + DateTime.Now + "> " + entry);
-            }
-        }
-
-        private void ReadLogFile()
-        {
-            if (!File.Exists(CLogFile)) return;
-
-            LoggedEventsList.Items.Clear();
-
-            var counter = 0;
-
-            using (var sr = File.OpenText(CLogFile))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    LoggedEventsList.Items.Add(line);
-                    counter++;
-                }
-            }
-            InfoStatus.Text = "Num Log Lines: " + counter;
+            _presenter.NewEntry();
         }
     }
 }

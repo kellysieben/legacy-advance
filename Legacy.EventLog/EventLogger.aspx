@@ -15,9 +15,9 @@
         <asp:Button ID="AddLogButton" runat="server" OnClick="AddLogButton_Click" Text="Submit" Width="71px" />
         <hr />
         <br />
-        <asp:Label ID="InfoStatus" runat="server"></asp:Label>
+        <asp:Label ID="InfoStatusLabel" runat="server"></asp:Label>
         <br />
-        <asp:ListBox ID="LoggedEventsList" runat="server" Height="668px" Width="871px"></asp:ListBox>
+        <asp:ListBox ID="LoggedEventsList" runat="server" Height="668px" Width="871px" Enabled="False"></asp:ListBox>
     </form>
 </body>
 </html>

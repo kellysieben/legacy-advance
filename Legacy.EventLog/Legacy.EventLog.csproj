@@ -86,8 +86,13 @@
     <Compile Include="EventLogger.aspx.designer.cs">
       <DependentUpon>EventLogger.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\FileLogService.cs" />
+    <Compile Include="Model\ILogService.cs" />
+    <Compile Include="Presenter\LogPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\ILogView.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

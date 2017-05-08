@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Legacy.EventLog.Model;
 using Legacy.EventLog.Presenter;
 using Legacy.EventLog.View;
@@ -34,6 +35,7 @@ namespace Legacy.EventLog
                     LoggedEventsList.Items.Add(s);
                 }
             }
+            get { return LoggedEventsList.Items.Cast<string>().ToArray(); }
         }
 
         protected void Page_Load(object sender, EventArgs e)

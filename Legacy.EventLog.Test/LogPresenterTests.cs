@@ -49,7 +49,7 @@ namespace Legacy.EventLog.Test
         public void WhenNewEntry_ShouldUpdateInfoStatus()
         {
             // Arrange
-            var entries = new[] { "Hello from this side." };
+            var entries = new[] { "Hello from this side.", "Over there!"};
             _service.EntryCounter.Returns(entries.Length);
             _view.NewEntry.Returns("Hello from this side.");
 
@@ -57,7 +57,7 @@ namespace Legacy.EventLog.Test
             _sut.NewEntry();
 
             // Assert
-            Assert.AreEqual("Number of Entries: 1", _view.InfoStatus);
+            Assert.AreEqual("Number of Entries: 2", _view.InfoStatus);
         }
     }
 }

@@ -3,7 +3,7 @@ using Legacy.EventLog.View;
 
 namespace Legacy.EventLog.Presenter
 {
-    public class LogPresenter
+    public class LogPresenter : PresenterBase<ILogView>, ILogPresenter<ILogView>
     {
         private readonly ILogView _view;
         private readonly ILogService _service;

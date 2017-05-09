@@ -1,15 +1,16 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using Legacy.EventLog.Model;
 using Legacy.EventLog.Presenter;
 using Legacy.EventLog.View;
 
 namespace Legacy.EventLog
 {
-    public partial class EventLogger : System.Web.UI.Page, ILogView
+    public partial class EventLogger : ViewBase<ILogPresenter<ILogView>, ILogView>, ILogView
     {
-        private LogPresenter _presenter;
+        protected override void PageLoad()
+        {
+            Presenter.Init();
+        }
 
         public string NewEntry
         {
@@ -27,8 +28,6 @@ namespace Legacy.EventLog
         {
             set
             {
-                if (value == null) return;
-
                 LoggedEventsList.Items.Clear();
                 foreach (var s in value)
                 {
@@ -38,15 +37,9 @@ namespace Legacy.EventLog
             get { return LoggedEventsList.Items.Cast<string>().ToArray(); }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            _presenter = new LogPresenter(this, new FileLogService());
-            _presenter.Init();
-        }
-
         protected void AddLogButton_Click(object sender, EventArgs e)
         {
-            _presenter.NewEntry();
+            Presenter.NewEntry();
         }
     }
 }

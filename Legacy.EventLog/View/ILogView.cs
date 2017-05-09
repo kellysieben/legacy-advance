@@ -1,6 +1,6 @@
 ﻿namespace Legacy.EventLog.View
 {
-    public interface ILogView
+    public interface ILogView : IView
     {
         string NewEntry { get; set; }
         string[] Log { set; get; }

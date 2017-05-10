@@ -52,7 +52,7 @@ namespace Legacy.EventLog.Test
         {
             // Arrange
             var entries = new List<string>(new[] { "Hello from this side.", "Over there!" });
-            _service.EntryCounter.Returns(entries.Count);
+            _service.GetAllEntries().Returns(entries);
             _view.NewEntry.Returns("Hello from this side.");
 
             // Act

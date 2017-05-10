@@ -6,6 +6,5 @@ namespace Legacy.EventLog.Model
     {
         void AddNewEntry(string newEntry);
         List<string> GetAllEntries();
-        int EntryCounter { get; }
     }
 }

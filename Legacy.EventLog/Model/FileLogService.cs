@@ -7,26 +7,7 @@ namespace Legacy.EventLog.Model
 {
     public class FileLogService : ILogService
     {
-        //private const string CLogFile = "c:\\logs\\jbf.log";
         private readonly string _logFile = ConfigurationManager.AppSettings["LogFileLocation"];
-
-        public int EntryCounter
-        {
-            get
-            {
-                if (!File.Exists(_logFile)) return 0;
-
-                var counter = 0;
-                using (var sr = File.OpenText(_logFile))
-                {
-                    while (sr.ReadLine() != null)
-                    {
-                        counter++;
-                    }
-                }
-                return counter;
-            }
-        }
 
         public void AddNewEntry(string newEntry)
         {

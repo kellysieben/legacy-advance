@@ -26,9 +26,9 @@ namespace Legacy.EventLog.Presenter
 
         private void LoadAllEntries()
         {
-            View.Log = _service.GetAllEntries();
-            View.InfoStatus = "Number of Entries: " + _service.EntryCounter;
+            var all = _service.GetAllEntries();
+            View.Log = all;
+            View.InfoStatus = "Number of Entries: " + all.Count;
         }
-
     }
 }

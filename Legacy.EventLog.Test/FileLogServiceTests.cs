@@ -23,7 +23,7 @@ namespace Legacy.EventLog.Test
         [TestMethod]
         public void AddEntry_ShouldIncreaseCount()
         {
-            Assert.AreEqual(0, _sut.EntryCounter);
+            Assert.AreEqual(0, _sut.GetAllEntries().Count);
         }
     }
 }

@@ -35,21 +35,12 @@ namespace Legacy.EventLog.Model
             }
         }
 
-        public string[] GetAllEntries()
+        public List<string> GetAllEntries()
         {
-            if (!File.Exists(CLogFile)) return new string[] {};
+            if (!File.Exists(CLogFile)) return new List<string>();
 
-            var all = new List<string>();
-            using (var sr = File.OpenText(CLogFile))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    all.Add(line);
-                }
-            }
-
-            return all.ToArray();
+            var logFile = File.ReadAllLines(CLogFile);
+            return new List<string>(logFile);
         }
     }
 }

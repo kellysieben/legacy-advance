@@ -2,7 +2,7 @@
 {
     public class PresenterBase<TView> : IPresenter<TView>
     {
-        public TView View { get; private set; }
+        public TView View { get; set; }
 
         public virtual void Bind(TView view)
         {

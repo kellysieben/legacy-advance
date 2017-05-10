@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Legacy.EventLog.Presenter;
 using Legacy.EventLog.View;
@@ -24,17 +25,14 @@ namespace Legacy.EventLog
             set { InfoStatusLabel.Text = value; }
         }
 
-        public string[] Log
+        public List<string> Log
         {
             set
             {
-                LoggedEventsList.Items.Clear();
-                foreach (var s in value)
-                {
-                    LoggedEventsList.Items.Add(s);
-                }
+                LoggedEventsList.DataSource = value;
+                LoggedEventsList.DataBind();
             }
-            get { return LoggedEventsList.Items.Cast<string>().ToArray(); }
+            get { return LoggedEventsList.Items.Cast<string>().ToList(); }
         }
 
         protected void AddLogButton_Click(object sender, EventArgs e)

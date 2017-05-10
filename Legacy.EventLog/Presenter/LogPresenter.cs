@@ -5,12 +5,10 @@ namespace Legacy.EventLog.Presenter
 {
     public class LogPresenter : PresenterBase<ILogView>, ILogPresenter<ILogView>
     {
-        private readonly ILogView _view;
         private readonly ILogService _service;
 
-        public LogPresenter(ILogView view, ILogService service)
+        public LogPresenter(ILogService service)
         {
-            _view = view;
             _service = service;
         }
 
@@ -21,15 +19,15 @@ namespace Legacy.EventLog.Presenter
 
         public void NewEntry()
         {
-            _service.AddNewEntry(_view.NewEntry);
-            _view.NewEntry = "";
+            _service.AddNewEntry(View.NewEntry);
+            View.NewEntry = "";
             LoadAllEntries();
         }
 
         private void LoadAllEntries()
         {
-            _view.Log = _service.GetAllEntries();
-            _view.InfoStatus = "Number of Entries: " + _service.EntryCounter;
+            View.Log = _service.GetAllEntries();
+            View.InfoStatus = "Number of Entries: " + _service.EntryCounter;
         }
 
     }

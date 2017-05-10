@@ -1,4 +1,5 @@
-﻿using Legacy.EventLog.Model;
+﻿using System.Collections.Generic;
+using Legacy.EventLog.Model;
 using Legacy.EventLog.Presenter;
 using Legacy.EventLog.View;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,7 +19,8 @@ namespace Legacy.EventLog.Test
         {
             _service = Substitute.For<ILogService>();
             _view = Substitute.For<ILogView>();
-            _sut = new LogPresenter(_view, _service);
+            _sut = new LogPresenter(_service);
+            _sut.Bind(_view);
         }
 
         [TestCleanup]
@@ -33,7 +35,7 @@ namespace Legacy.EventLog.Test
         public void WhenNewEntry_ShouldAddToLog()
         {
             // Arrange
-            var entries = new string[] {"Hello from this side."};
+            var entries = new List<string>(new[] {"Hello from this side."});
             _view.NewEntry.Returns("Hello from this side.");
             _service.GetAllEntries().Returns(entries);
 
@@ -49,8 +51,8 @@ namespace Legacy.EventLog.Test
         public void WhenNewEntry_ShouldUpdateInfoStatus()
         {
             // Arrange
-            var entries = new[] { "Hello from this side.", "Over there!"};
-            _service.EntryCounter.Returns(entries.Length);
+            var entries = new List<string>(new[] { "Hello from this side.", "Over there!" });
+            _service.EntryCounter.Returns(entries.Count);
             _view.NewEntry.Returns("Hello from this side.");
 
             // Act

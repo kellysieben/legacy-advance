@@ -1,9 +1,11 @@
-﻿namespace Legacy.EventLog.View
+﻿using System.Collections.Generic;
+
+namespace Legacy.EventLog.View
 {
     public interface ILogView : IView
     {
         string NewEntry { get; set; }
-        string[] Log { set; get; }
+        List<string> Log { set; get; }
         string InfoStatus { get; set; }
     }
 }

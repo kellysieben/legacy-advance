@@ -21,6 +21,8 @@ namespace Legacy.EventLog.Test
             _view = Substitute.For<ILogView>();
             _sut = new LogPresenter(_service);
             _sut.Bind(_view);
+
+
         }
 
         [TestCleanup]

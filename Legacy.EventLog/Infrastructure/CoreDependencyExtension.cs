@@ -1,7 +1,6 @@
-﻿using Legacy.EventLog.Model;
-using Legacy.EventLog.Presenter;
-using Legacy.EventLog.View;
+﻿using System.Configuration;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
 
 namespace Legacy.EventLog.Infrastructure
 {
@@ -9,8 +8,7 @@ namespace Legacy.EventLog.Infrastructure
     {
         protected override void Initialize()
         {
-            Container.RegisterType<ILogService, FileLogService>();
-            Container.RegisterType<ILogPresenter<ILogView>, LogPresenter>();
+            ((UnityConfigurationSection)ConfigurationManager.GetSection("unity")).Configure(Container);
         }
     }
 }

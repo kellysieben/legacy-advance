@@ -2,15 +2,17 @@
 
 namespace Legacy.LogApi.Data
 {
-    public class InMemoryDataStore
+    public static class InMemoryDataStore
     {
         private static readonly List<string> All = new List<string>();
 
-        public void Add(string entry)
+        public static void Add(string entry)
         {
             All.Add(entry);
         }
 
-        public List<string> Get() => All;
+        public static List<string> Get() => All;
+
+        public static void Clear() => All.Clear();
     }
 }

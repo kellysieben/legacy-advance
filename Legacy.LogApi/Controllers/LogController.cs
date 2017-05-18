@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Legacy.LogApi.Data;
 
@@ -7,37 +9,46 @@ namespace Legacy.LogApi.Controllers
 {
     public class LogController : ApiController
     {
-        private readonly InMemoryDataStore _vals = new InMemoryDataStore();
-
         // GET: api/Log
         public IEnumerable<string> Get()
         {
-            return _vals.Get();
+            return InMemoryDataStore.Get();
         }
 
         // GET: api/Log/5
         public string Get(int id)
         {
-            throw new NotImplementedException("Specific Gets Are Not Allowed.");
+            return InMemoryDataStore.Get()[id];
         }
 
         // POST: api/Log
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]string value)
         {
-            _vals.Add("<" + DateTime.Now + "> " + value);
-            //return CreatedAtRoute();
+            try
+            {
+                InMemoryDataStore.Add("<" + DateTime.Now + "> " + value);
+
+                // Common practice in REST is to return the location of the new resource
+                var response = Request.CreateResponse(HttpStatusCode.Created);
+                response.Headers.Location = new Uri(Request.RequestUri + "/" + (InMemoryDataStore.Get().Count - 1));
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         // PUT: api/Log/5
-//        public void Put(int id, [FromBody]string value)
-//        {
-//            _vals[id] = value;
-//        }
+        public void Put(int id, [FromBody]string value)
+        {
+            throw new NotImplementedException("Cannot Modify Entires in the Log.");
+        }
 
         // DELETE: api/Log/5
         public void Delete(int id)
         {
-            throw new NotImplementedException("Cannot Delete Anything In This Log");
+            throw new NotImplementedException("Cannot Delete Anything in the Log.");
         }
     }
 }

@@ -116,8 +116,10 @@
       <DependentUpon>EventLogger.aspx</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CoreDependencyExtension.cs" />
+    <Compile Include="Model\BrokenLogService.cs" />
     <Compile Include="Model\FileLogService.cs" />
     <Compile Include="Model\ILogService.cs" />
+    <Compile Include="Model\RemoteLogService.cs" />
     <Compile Include="Presenter\ILogPresenter.cs" />
     <Compile Include="Presenter\IPresenter.cs" />
     <Compile Include="Presenter\LogPresenter.cs" />

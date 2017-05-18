@@ -7,7 +7,7 @@ namespace Legacy.LogApi.Controllers
 {
     public class LogController : ApiController
     {
-        private readonly InMemoryLog _vals = new InMemoryLog();
+        private readonly InMemoryDataStore _vals = new InMemoryDataStore();
 
         // GET: api/Log
         public IEnumerable<string> Get()
@@ -18,7 +18,7 @@ namespace Legacy.LogApi.Controllers
         // GET: api/Log/5
         public string Get(int id)
         {
-            return "not implemented";
+            throw new NotImplementedException("Specific Gets Are Not Allowed.");
         }
 
         // POST: api/Log
@@ -37,6 +37,7 @@ namespace Legacy.LogApi.Controllers
         // DELETE: api/Log/5
         public void Delete(int id)
         {
+            throw new NotImplementedException("Cannot Delete Anything In This Log");
         }
     }
 }

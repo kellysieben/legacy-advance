@@ -2,7 +2,7 @@
 
 namespace Legacy.LogApi.Data
 {
-    public class InMemoryLog
+    public class InMemoryDataStore
     {
         private static readonly List<string> All = new List<string>();
 

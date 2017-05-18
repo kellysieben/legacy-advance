@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Legacy.LogApi", "Legacy.Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Legacy.LogApi.Tests", "Legacy.LogApi.Tests\Legacy.LogApi.Tests.csproj", "{453708D9-02E5-4C6A-988A-7390C802599C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Legacy.CoreApi", "Legacy.CoreApi\Legacy.CoreApi.xproj", "{50F361E6-E2BA-4257-8087-24DDD9C3EA0E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,10 +44,6 @@ Global
 		{453708D9-02E5-4C6A-988A-7390C802599C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{453708D9-02E5-4C6A-988A-7390C802599C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{453708D9-02E5-4C6A-988A-7390C802599C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50F361E6-E2BA-4257-8087-24DDD9C3EA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50F361E6-E2BA-4257-8087-24DDD9C3EA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50F361E6-E2BA-4257-8087-24DDD9C3EA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50F361E6-E2BA-4257-8087-24DDD9C3EA0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,8 @@ namespace Legacy.EventLog.Model
 {
     public interface ILogService
     {
-        void AddNewEntry(string newEntry);
-        List<string> GetAllEntries();
+        void AddNewEntry(LogEntry newEntry);
+        List<LogEntry> GetAllEntries();
+        int Count { get; }
     }
 }

@@ -37,7 +37,7 @@ namespace Legacy.EventLog.Test
         public void WhenNewEntry_ShouldAddToLog()
         {
             // Arrange
-            var entries = new List<string>(new[] {"Hello from this side."});
+            var entries = new List<LogEntry>(new[] {new LogEntry {Details = "Hello from this side."}});
             _view.NewEntry.Returns("Hello from this side.");
             _service.GetAllEntries().Returns(entries);
 
@@ -53,8 +53,14 @@ namespace Legacy.EventLog.Test
         public void WhenNewEntry_ShouldUpdateInfoStatus()
         {
             // Arrange
-            var entries = new List<string>(new[] { "Hello from this side.", "Over there!" });
+            //var entries = new List<string>(new[] { "Hello from this side.", "Over there!" });
+            var entries = new List<LogEntry>(new[]
+            {
+                new LogEntry { Details = "Hello from this side." },
+                new LogEntry { Details = "Over there." }
+            });
             _service.GetAllEntries().Returns(entries);
+            _service.Count.Returns(entries.Count);
             _view.NewEntry.Returns("Hello from this side.");
 
             // Act

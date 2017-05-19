@@ -19,16 +19,15 @@ namespace Legacy.EventLog.Presenter
 
         public void NewEntry()
         {
-            _service.AddNewEntry(View.NewEntry);
+            _service.AddNewEntry(new LogEntry {Details = View.NewEntry});
             View.NewEntry = "";
             LoadAllEntries();
         }
 
         private void LoadAllEntries()
         {
-            var all = _service.GetAllEntries();
-            View.Log = all;
-            View.InfoStatus = "Number of Entries: " + all.Count;
+            View.Log = _service.GetAllEntries();
+            View.InfoStatus = "Number of Entries: " + _service.Count;
         }
     }
 }

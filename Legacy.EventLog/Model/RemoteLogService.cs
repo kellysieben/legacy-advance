@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Legacy.EventLog.Model
@@ -14,33 +13,34 @@ namespace Legacy.EventLog.Model
             _logClient = logClient;
         }
 
-        public void AddNewEntry(string newEntry)
+        public void AddNewEntry(LogEntry newEntry)
         {
-            AddNewEntryAsync(newEntry);
+            Task.Run(() => AddNewEntryAsync(newEntry));
         }
 
-        private async Task AddNewEntryAsync(string newEntry)
-        {
-            var response = await _logClient.PostAsync($"api/Log", null);
-        }
-
-        public List<string> GetAllEntries()
+        public List<LogEntry> GetAllEntries()
         {
             return GetAllEntriesAsync().Result;
         }
 
-        private async Task<List<string>> GetAllEntriesAsync()
+        private async Task AddNewEntryAsync(LogEntry newEntry)
         {
-            List<string> all = null;
+            await _logClient.PostAsJsonAsync($"api/Log", newEntry);
+        }
+
+        private async Task<List<LogEntry>> GetAllEntriesAsync()
+        {
+            List<LogEntry> all = null;
             var response = await _logClient.GetAsync($"api/Log").ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
             {
-                all = await response.Content.ReadAsAsync<List<string>>();
+                all = await response.Content.ReadAsAsync<List<LogEntry>>();
             }
 
             return all;
         }
 
+        public int Count => -1;
     }
 }

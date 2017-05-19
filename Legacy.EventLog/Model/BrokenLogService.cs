@@ -5,14 +5,19 @@ namespace Legacy.EventLog.Model
 {
     public class BrokenLogService : ILogService
     {
-        public void AddNewEntry(string newEntry)
+        public void AddNewEntry(LogEntry newEntry)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<string> GetAllEntries()
+        public List<LogEntry> GetAllEntries()
         {
-            return new List<string>() {"<" + DateTime.Now + "> Don't even. It broke!"};
+            return new List<LogEntry>()
+            {
+                new LogEntry {Details = "Don't even. It broke!", Timestamp = DateTime.Now }
+            };
         }
+
+        public int Count => -0;
     }
 }

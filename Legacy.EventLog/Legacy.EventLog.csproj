@@ -128,6 +128,7 @@
     <Compile Include="Model\BrokenLogService.cs" />
     <Compile Include="Model\FileLogService.cs" />
     <Compile Include="Model\ILogService.cs" />
+    <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\RemoteLogService.cs" />
     <Compile Include="Presenter\ILogPresenter.cs" />
     <Compile Include="Presenter\IPresenter.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace Legacy.EventLog.Model
 {
@@ -9,21 +10,27 @@ namespace Legacy.EventLog.Model
     {
         private readonly string _logFile = ConfigurationManager.AppSettings["LogFileLocation"];
 
-        public void AddNewEntry(string newEntry)
+        public void AddNewEntry(LogEntry newEntry)
         {
-            if (string.IsNullOrEmpty(newEntry)) return;
+            if (string.IsNullOrEmpty(newEntry.Details)) return;
             using (var sw = File.AppendText(_logFile))
             {
-                sw.WriteLine("<" + DateTime.Now + "> " + newEntry);
+                sw.WriteLine("<" + DateTime.Now + "> " + newEntry.Details);
             }
         }
 
-        public List<string> GetAllEntries()
+        public List<LogEntry> GetAllEntries()
         {
-            if (!File.Exists(_logFile)) return new List<string>();
+            var entries = new List<LogEntry>();
+            if (!File.Exists(_logFile)) return entries;
 
             var logFile = File.ReadAllLines(_logFile);
-            return new List<string>(logFile);
+
+            entries.AddRange(logFile.Select(e => new LogEntry {Details = e}));
+
+            return entries;
         }
+
+        public int Count => GetAllEntries().Count;
     }
 }

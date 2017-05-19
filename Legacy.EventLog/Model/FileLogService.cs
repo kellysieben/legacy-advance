@@ -15,7 +15,7 @@ namespace Legacy.EventLog.Model
             if (string.IsNullOrEmpty(newEntry.Details)) return;
             using (var sw = File.AppendText(_logFile))
             {
-                sw.WriteLine("<" + DateTime.Now + "> " + newEntry.Details);
+                sw.WriteLine(DateTime.Now + "," + newEntry.Details);
             }
         }
 
@@ -26,7 +26,16 @@ namespace Legacy.EventLog.Model
 
             var logFile = File.ReadAllLines(_logFile);
 
-            entries.AddRange(logFile.Select(e => new LogEntry {Details = e}));
+            var sep = new[] {','};
+
+            entries.AddRange(from e in logFile
+                select e.Split(sep)
+                into s
+                where s.Length >= 2
+                select new LogEntry
+                {
+                    Timestamp = DateTime.Parse(s[0]), Details = s[1]
+                });
 
             return entries;
         }

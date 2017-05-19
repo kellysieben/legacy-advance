@@ -30,7 +30,7 @@ namespace Legacy.EventLog
         {
             set
             {
-                LoggedEventsList.DataSource = value.Select(e => e.Details).ToList();
+                LoggedEventsList.DataSource = value.Select(e => ("<" + e.Timestamp + "> " + e.Details)).ToList();
                 LoggedEventsList.DataBind();
             }
             get

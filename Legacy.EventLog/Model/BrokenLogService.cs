@@ -7,7 +7,7 @@ namespace Legacy.EventLog.Model
     {
         public void AddNewEntry(LogEntry newEntry)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public List<LogEntry> GetAllEntries()
@@ -18,6 +18,6 @@ namespace Legacy.EventLog.Model
             };
         }
 
-        public int Count => -0;
+        public int Count => 0;
     }
 }

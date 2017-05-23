@@ -9,9 +9,16 @@ namespace Legacy.EventLog
 {
     public partial class EventLogger : ViewBase<ILogPresenter<ILogView>, ILogView>, ILogView
     {
+        public EventLogger()
+        {
+        }
+
         protected override void PageLoad()
         {
-            Presenter.Init();
+            if (!IsPostBack)
+            {
+                Presenter.Init();
+            }
         }
 
         public string NewEntry
@@ -26,12 +33,17 @@ namespace Legacy.EventLog
             set { InfoStatusLabel.Text = value; }
         }
 
+        public int LogCount => LoggedEventsList.Items.Count;
+
         public List<LogEntry> Log
         {
             set
             {
-                LoggedEventsList.DataSource = value.Select(e => ("<" + e.Timestamp + "> " + e.Details)).ToList();
-                LoggedEventsList.DataBind();
+                LoggedEventsList.Items.Clear();
+                foreach (var l in value)
+                {
+                    LoggedEventsList.Items.Add("<" + l.Timestamp + "> " + l.Details);
+                }
             }
             get
             {

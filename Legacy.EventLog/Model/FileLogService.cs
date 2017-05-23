@@ -9,13 +9,14 @@ namespace Legacy.EventLog.Model
     public class FileLogService : ILogService
     {
         private readonly string _logFile = ConfigurationManager.AppSettings["LogFileLocation"];
+        private const char Seperator = '|';
 
         public void AddNewEntry(LogEntry newEntry)
         {
             if (string.IsNullOrEmpty(newEntry.Details)) return;
             using (var sw = File.AppendText(_logFile))
             {
-                sw.WriteLine(DateTime.Now + "," + newEntry.Details);
+                sw.WriteLine(DateTime.Now + Seperator.ToString() + newEntry.Details);
             }
         }
 
@@ -26,7 +27,7 @@ namespace Legacy.EventLog.Model
 
             var logFile = File.ReadAllLines(_logFile);
 
-            var sep = new[] {','};
+            var sep = new[] { Seperator};
 
             entries.AddRange(from e in logFile
                 select e.Split(sep)

@@ -13,6 +13,8 @@ namespace Legacy.EventLog.Model
             _logClient = logClient;
         }
 
+        public int Count => GetCountAsync();
+
         public void AddNewEntry(LogEntry newEntry)
         {
             Task.Run(() => AddNewEntryAsync(newEntry));
@@ -20,27 +22,38 @@ namespace Legacy.EventLog.Model
 
         public List<LogEntry> GetAllEntries()
         {
-            return GetAllEntriesAsync().Result;
+            return GetAllEntriesAsync();
         }
 
-        private async Task AddNewEntryAsync(LogEntry newEntry)
+        private void AddNewEntryAsync(LogEntry newEntry)
         {
-            await _logClient.PostAsJsonAsync($"api/Log", newEntry);
+             _logClient.PostAsJsonAsync($"api/Log", newEntry);
         }
 
-        private async Task<List<LogEntry>> GetAllEntriesAsync()
+        private List<LogEntry> GetAllEntriesAsync()
         {
             List<LogEntry> all = null;
-            var response = await _logClient.GetAsync($"api/Log").ConfigureAwait(false);
+            var response = _logClient.GetAsync($"api/Log").Result;
 
             if (response.IsSuccessStatusCode)
             {
-                all = await response.Content.ReadAsAsync<List<LogEntry>>();
+                all = response.Content.ReadAsAsync<List<LogEntry>>().Result;
             }
 
             return all;
         }
 
-        public int Count => -1;
+        private int GetCountAsync()
+        {
+            var count = -1;
+            var response = _logClient.GetAsync($"api/Log/Count").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                count = response.Content.ReadAsAsync<int>().Result;
+            }
+
+            return count;
+        }
     }
 }

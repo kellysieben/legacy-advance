@@ -7,6 +7,7 @@ namespace Legacy.EventLog.View
     {
         string NewEntry { get; set; }
         List<LogEntry> Log { set; get; }
+        int LogCount { get; }
         string InfoStatus { get; set; }
     }
 }

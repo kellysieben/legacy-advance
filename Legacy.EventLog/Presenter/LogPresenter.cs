@@ -14,20 +14,22 @@ namespace Legacy.EventLog.Presenter
 
         public void Init()
         {
-            LoadAllEntries();
+            CheckAndLoadAllEntries();
         }
 
         public void NewEntry()
         {
             _service.AddNewEntry(new LogEntry {Details = View.NewEntry});
             View.NewEntry = "";
-            LoadAllEntries();
+            CheckAndLoadAllEntries();
         }
 
-        private void LoadAllEntries()
+        private void CheckAndLoadAllEntries()
         {
+            if (View.LogCount == _service.Count) return;
+
             View.Log = _service.GetAllEntries();
-            View.InfoStatus = "Number of Entries: " + _service.Count;
+            View.InfoStatus = "[" + _service.GetType().Name + "] > Number of Entries: " + _service.Count;
         }
     }
 }
